@@ -3,145 +3,154 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Veltra AI - Yapay Zeka Asistanı</title>
+    <title>Veltra AI - Çok Amaçlı Medya Platformu</title>
     <style>
+        :root {
+            --bg-color: #0f172a;
+            --panel-bg: #1e293b;
+            --border-color: #334155;
+            --accent-color: #0284c7;
+            --accent-hover: #0369a1;
+            --text-main: #f8fafc;
+            --text-sub: #94a3b8;
+        }
+
         body {
-            background-color: #0f172a;
-            color: #f8fafc;
-            font-family: Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 15px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
             min-height: 100vh;
-            margin: 0;
-            padding: 10px;
         }
-        .chat-container {
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+            color: #38bdf8;
+        }
+
+        header p {
+            margin: 5px 0 0 0;
+            font-size: 14px;
+            color: var(--text-sub);
+        }
+
+        .main-container {
             width: 100%;
-            max-width: 450px;
-            background-color: #1e293b;
-            border-radius: 12px;
+            max-width: 600px;
             display: flex;
             flex-direction: column;
-            height: 500px;
-            overflow: hidden;
-            border: 1px solid #334155;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            gap: 20px;
         }
-        .chat-header {
-            background-color: #0f172a;
+
+        .card {
+            background-color: var(--panel-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
             padding: 15px;
-            text-align: center;
-            font-weight: bold;
-            font-size: 18px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h3 {
+            margin-top: 0;
+            font-size: 16px;
             color: #38bdf8;
-            border-bottom: 1px solid #334155;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
         }
+
+        /* Sohbet Alanı */
         #chat-messages {
-            flex: 1;
-            padding: 15px;
+            height: 220px;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
+            margin-bottom: 10px;
+            padding-right: 5px;
         }
+
         .msg {
-            padding: 10px 14px;
+            padding: 8px 12px;
             border-radius: 8px;
             max-width: 80%;
-            line-height: 1.4;
             font-size: 14px;
+            line-height: 1.4;
         }
+
         .ai-msg {
             background-color: #334155;
             align-self: flex-start;
-            color: #cbd5e1;
+            color: #e2e8f0;
         }
+
         .user-msg {
-            background-color: #0284c7;
+            background-color: var(--accent-color);
             align-self: flex-end;
             color: white;
         }
-        .chat-input {
+
+        .input-row {
             display: flex;
-            padding: 12px;
-            background-color: #0f172a;
             gap: 8px;
-            border-top: 1px solid #334155;
         }
-        input {
+
+        input[type="text"], input[type="file"] {
             flex: 1;
-            padding: 10px;
+            padding: 8px 12px;
             border-radius: 6px;
-            border: 1px solid #475569;
-            background: #1e293b;
+            border: 1px solid var(--border-color);
+            background: var(--bg-color);
             color: white;
             font-size: 14px;
         }
+
         button {
-            padding: 10px 18px;
-            background: #0284c7;
+            padding: 8px 16px;
+            background: var(--accent-color);
             border: none;
             border-radius: 6px;
             color: white;
             cursor: pointer;
             font-weight: bold;
+            transition: background 0.2s;
         }
+
         button:hover {
-            background: #0369a1;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="chat-container">
-        <div class="chat-header">Veltra AI Asistan</div>
-        <div id="chat-messages">
-            <div class="msg ai-msg">Merhaba! Ben Veltra AI. Sana nasıl yardımcı olabilirim?</div>
-        </div>
-        <div class="chat-input">
-            <input type="text" id="userInput" placeholder="Bir şeyler yaz..." onkeypress="handleKeyPress(event)">
-            <button onclick="sendChat()">Gönder</button>
-        </div>
-    </div>
-
-    <script>
-        function sendChat() {
-            const input = document.getElementById('userInput');
-            const text = input.value.trim();
-            if(!text) return;
-            
-            const chatMsgs = document.getElementById('chat-messages');
-            
-            // Kullanıcı mesajını ekle
-            chatMsgs.innerHTML += `<div class="msg user-msg">${text}</div>`;
-            input.value = '';
-            chatMsgs.scrollTop = chatMsgs.scrollHeight;
-
-            // Yapay zeka yanıt simülasyonu
-            setTimeout(() => {
-                let reply = "Harika bir soru! Bu konuda sana memnuniyetle yardımcı olurum.";
-                const lower = text.toLowerCase();
-                
-                if(lower.includes("merhaba") || lower.includes("selam")) {
-                    reply = "Selam! Bugün hangi projeler üzerinde çalışıyoruz?";
-                } else if(lower.includes("nasıl") || lower.includes("ne")) {
-                    reply = "Kod yazımında ve hata ayıklamada her zaman yanındayım.";
-                } else if(lower.includes("oyun")) {
-                    reply = "Oyun projeleri geliştirmek oldukça eğlencelidir! Hangi tür oyun yapıyorsun?";
-                }
-
-                chatMsgs.innerHTML += `<div class="msg ai-msg">${reply}</div>`;
-                chatMsgs.scrollTop = chatMsgs.scrollHeight;
-            }, 600);
+            background: var(--accent-hover);
         }
 
-        function handleKeyPress(event) {
-            if (event.key === 'Enter') {
-                sendChat();
-            }
+        /* Fotoğraf/Görsel Alanı */
+        .image-preview-container {
+            width: 100%;
+            height: 180px;
+            border: 2px dashed var(--border-color);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background-color: var(--bg-color);
+            margin-bottom: 10px;
+            position: relative;
         }
-    </script>
-</body>
-</html>
+
+        .image-preview-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            display: none;
+        }
+
+        .placeholder-text {
+            color: var(--text-sub);
+            font-size: 
