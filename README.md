@@ -1,2 +1,1 @@
-# Veltra-AI
-Veltra AI
+
